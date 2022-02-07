@@ -1,16 +1,36 @@
-# This is a sample Python script.
+import sys
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from PyQt5 import uic
+
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+
+import parse_requests
+
+SCREEN_SIZE = [400, 400]
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Example(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+        uic.loadUi('main.ui', self)
+
+    def initUI(self):
+        self.setGeometry(400, 400, *SCREEN_SIZE)
+        self.setWindowTitle('Отображение картинки')
+
+        parse_requests.update_image([37.637432, 55.752301])
+
+        self.pixmap = QPixmap('map.png')
+        self.image = QLabel(self)
+        self.image.move(250, 250)
+        self.image.resize(400, 400)
+        self.image.setPixmap(self.pixmap)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app = QApplication(sys.argv)
+    ex = Example()
+    ex.show()
+    sys.exit(app.exec())
