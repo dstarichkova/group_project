@@ -1,0 +1,22 @@
+{
+  "button": {
+    "colours":
+    {
+      "normal_bg": "#32ca28",
+      "hovered_bg": "#32ca28",
+      "active_bg": "#32ca28",
+      "normal_text": "#ffffff",
+      "hovered_text": "#ffffff",
+      "active_text": "#ffffff"
+    }
+  },
+  "text_entry_line": {
+    "colours":
+    {
+      "dark_bg": "#ffffff",
+      "hovered_bg": "#ffffff",
+      "normal_text": "#000000",
+      "selected_text": "#000000"
+    }
+  }
+}
