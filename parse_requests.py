@@ -46,7 +46,6 @@ def update_image():
         "l": MAP
     }
     response = requests.get(STATIC_MAPS_URL, params=params)
-    print(SPN)
     if response:
         with open('data/map.png', "wb") as file:
             file.write(response.content)
