@@ -1,0 +1,8 @@
+Названия штук в интерфейсе
+
+MainWindow
+search_field
+search
+shema, sputnik, gibrid
+delete
+index
