@@ -66,7 +66,7 @@ def main_window_process_events(self, event):
             elif 78 in keys and parse_requests.SPN < 50:
                 parse_requests.SPN *= 2
             else:
-                move = parse_requests.SPN * 0.2
+                move = parse_requests.SPN
                 if 82 in keys and parse_requests.COORDS[1] + move < 100:
                     parse_requests.COORDS[1] += move
                 if 81 in keys and parse_requests.COORDS[1] - move > -100:
