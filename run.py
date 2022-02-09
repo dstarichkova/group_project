@@ -59,12 +59,22 @@ def update_map():
 # MAIN WINDOW CREATING
 def main_window_process_events(self, event):
     if event.type == pygame.KEYDOWN:
-        keys = [i for i, e in enumerate(pygame.key.get_pressed()) if e]
-        if 75 in keys and parse_requests.SPN >= 0:
-            parse_requests.SPN /= 2
-            update_map()
-        elif 78 in keys and parse_requests.SPN < 50:
-            parse_requests.SPN *= 2
+        keys = [i for i, e in enumerate(pygame.key.get_pressed()) if e and i in [75] + list(range(78, 83))]
+        if keys:
+            if 75 in keys and parse_requests.SPN >= 0:
+                parse_requests.SPN /= 2
+            elif 78 in keys and parse_requests.SPN < 50:
+                parse_requests.SPN *= 2
+            else:
+                move = parse_requests.SPN * 0.2
+                if 82 in keys and parse_requests.COORDS[1] + move < 100:
+                    parse_requests.COORDS[1] += move
+                if 81 in keys and parse_requests.COORDS[1] - move > -100:
+                    parse_requests.COORDS[1] -= move
+                if 80 in keys:
+                    parse_requests.COORDS[0] -= move
+                if 79 in keys:
+                    parse_requests.COORDS[0] += move
             update_map()
 
 main_window = core.Window(
