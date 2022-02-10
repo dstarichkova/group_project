@@ -12,6 +12,7 @@ SIZE = [650, 450]
 COORDS = [37.619015, 55.769393]
 SPN = 0.001
 MAP = 'map'
+POINT = False
 
 
 # main funcs
@@ -25,7 +26,7 @@ def error(response, request):
 
 def get_coords(name):
     params = {
-        'apikey': "40d1649f-0493-4b70-98ba-98533de7710",
+        'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
         'geocode': name,
         'format': 'json'
     }
@@ -45,6 +46,8 @@ def update_image():
         "spn": j([SPN] * 2),
         "l": MAP
     }
+    if POINT:
+        params.update({"pt": j(COORDS) + ',pmgns'})
     response = requests.get(STATIC_MAPS_URL, params=params)
     if response:
         with open('data/map.png', "wb") as file:

@@ -29,8 +29,10 @@ def init_main_window():
     update_map()
 
     def search_func(self, event):
-        print(search_field.get_text())
-        # тут будет функция поиска
+        search_coords = parse_requests.get_coords(search_field.get_text())
+        parse_requests.COORDS = [float(i) for i in search_coords.split(',')]
+        parse_requests.POINT = True
+        update_map()
 
     def change_mode(mode):
         parse_requests.MAP = mode
@@ -95,8 +97,10 @@ text_render = core.AutoTextRender()
 def init_start_window():
 
     def search_func(self, event):
-        print(search_field.get_text())
-        # тут будет функция поиска
+        search_coords = parse_requests.get_coords(search_field.get_text())
+        parse_requests.COORDS = [float(i) for i in search_coords.split(',')]
+        parse_requests.POINT = True
+        update_map()
 
     search_field = pygame_gui.elements.UITextEntryLine(pygame.Rect((165, 210), (230, 30)), start_ui_manager)
 
