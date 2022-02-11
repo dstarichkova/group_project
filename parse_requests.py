@@ -12,7 +12,9 @@ SIZE = [650, 450]
 COORDS = [37.619015, 55.769393]
 SPN = 0.001
 MAP = 'map'
-POINT = False
+POINT = []
+OBJECT_DATA = {}
+ADD_POSTAL_CODE = False
 
 
 # main funcs
@@ -22,9 +24,9 @@ def error(response, request):
     print("Ошибка выполнения запроса:")
     print(request)
     print("Http статус:", response.status_code, "(", response.reason, ")")
-    sys.exit(1)
 
 def get_coords(name):
+    global OBJECT_DATA
     params = {
         'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
         'geocode': name,
@@ -32,8 +34,12 @@ def get_coords(name):
     }
     response = requests.get(GEOCODER_MAPS_URL, params=params)
     if response:
-        json_response = response.json()
-        return ','.join(json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split())
+        try:
+            json_response = response.json()
+            OBJECT_DATA = json_response["response"]["GeoObjectCollection"]["featureMember"][0]
+            return ','.join(OBJECT_DATA["GeoObject"]["Point"]["pos"].split())
+        except IndexError as e:
+            error(response, GEOCODER_MAPS_URL)
     else:
         error(response, GEOCODER_MAPS_URL)
 
@@ -47,7 +53,7 @@ def update_image():
         "l": MAP
     }
     if POINT:
-        params.update({"pt": j(COORDS) + ',pmgns'})
+        params.update({"pt": j(POINT) + ',pmgns'})
     response = requests.get(STATIC_MAPS_URL, params=params)
     if response:
         with open('data/map.png', "wb") as file:
