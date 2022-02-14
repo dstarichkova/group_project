@@ -105,14 +105,16 @@ def main_window_process_events(self, event):
                 parse_requests.SPN *= 2
             else:
                 move = parse_requests.SPN
-                if 82 in keys and parse_requests.COORDS[1] + move < 100:
+                if 82 in keys and parse_requests.COORDS[1] + move < 90:
                     parse_requests.COORDS[1] += move
-                if 81 in keys and parse_requests.COORDS[1] - move > -100:
+                if 81 in keys and parse_requests.COORDS[1] - move > -90:
                     parse_requests.COORDS[1] -= move
                 if 80 in keys:
                     parse_requests.COORDS[0] -= move
                 if 79 in keys:
                     parse_requests.COORDS[0] += move
+                if abs(parse_requests.COORDS[0]) > 180:
+                    parse_requests.COORDS[0] -= 180 * parse_requests.COORDS[0] / abs(parse_requests.COORDS[0])
             update_map()
 
 
